@@ -1,0 +1,78 @@
+<html lang="fr">
+    <head>
+        <link href="main.css" rel="stylesheet" disable />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="Description" content="API BLOG" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Blog ressources dev</title>
+    </head>
+    <body>
+        <header>
+            <h1>Le blog, LE TEST</h1>
+        </header>
+        <div class="data"></div>
+        <div class="blog"></div>
+        <a href="formulaire.html" class="addRessource">Ajouter une ressource</a>
+
+        <script>
+            const getArticles = async () => {
+                const response = await fetch('http://localhost:3000/articles');
+                const data = await response.json();
+                generateHtml(data);
+            };
+
+            getArticles();
+
+            const generateHtml = (data) => {
+                let html = '';
+                for (var i = 0; i < data.length; i++) {
+                    html += `
+                                		<div class= "info">
+                                		<h2 class="titre">${data[i].titre}</h2>
+                                		<h3 class="auteur">by ${data[i].auteur}</h3>
+            							<div class="contenu">${data[i].contenu}</div>
+            							<button class="voir"
+                                        onclick="getArticle('${data[i]._id}')">Voir</button>
+                                		</div>
+                                				`;
+                }
+                let titre = document.querySelector('.data');
+                titre.innerHTML = html;
+            };
+
+            const getArticle = async (id) => {
+                const response = await fetch(`http://localhost:3000/articles/${id}`);
+                const article = await response.json();
+                generateHtmlArticle(article);
+            };
+
+            const generateHtmlArticle = (article) => {
+                resetPage();
+                const html = `          <div class = "articleView">
+                                		<div class= "info">
+                                		<h2 class="titre">${article.titre}</h2>
+                                		<h3 class="auteur">by ${article.auteur}</h3>
+                                       <div class="contenu"> ${article.contenu}</div>
+                                        <h4 class="date">Ajouté le : ${article.date}</h4></div>
+                                        <div class ="return"><button class="back"
+                                        onclick="getArticles(),resetPage()">Back</button></div></div>
+                                        
+                                				`;
+
+                let info = document.querySelector('.blog');
+                info.innerHTML = html;
+            };
+
+            document.querySelectorAll('.voir').forEach((item) => {
+                item.addEventListener('click', getArticle);
+            });
+
+            const resetPage = () => {
+                document.querySelector('.data').innerHTML = '';
+                document.querySelector('.blog').innerHTML = '';
+            };
+        </script>
+    </body>
+
+    <footer></footer>
+</html>

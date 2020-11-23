@@ -1,0 +1,75 @@
+<html lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="Description" content="API BLOG" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Formulaire</title>
+        <script
+            type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
+        />
+
+        <link href="formulaire.css" rel="stylesheet" disable />
+    </head>
+    <body>
+        <header><h1>formulaire, LE TEST</h1></header>
+
+        <form id="contact-form" method="POST" action="http://localhost:3000/articles">
+            <fieldset>
+                <label for="titre">titre</label>
+                <input name="titre" type="text" placeholder="Titre de votre article" id="titre" />
+                <label for="auteur">auteur</label>
+                <input name="auteur" type="text" placeholder="Nom de l'auteur" id="auteur" />
+
+                <label for="date">date</label>
+                <input name="date" type="text" placeholder="JJ/MM/YY" id="date" />
+
+                <label for="contenu"> Contenu </label>
+                <input
+                    name="contenu"
+                    type="text"
+                    placeholder="Description du contenu"
+                    id="contenu"
+                />
+                <input class="button-primary" type="submit" value="Send" />
+            </fieldset>
+        </form>
+
+        <a href="index.html" class="back">back</a>
+
+        <script type="text/javascript">
+            var form = $('#contactForm1');
+
+            form.submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (data) {
+                        console.log('Submission was successful.');
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                    },
+                });
+            });
+        </script>
+    </body>
+
+    <footer></footer>
+</html>
