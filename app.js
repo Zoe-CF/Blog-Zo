@@ -8,7 +8,7 @@ var options = {
 };
 
 var urlmongo =
-    'mongodb+srv://user2:mongopass@clustertuto.eoxy2.mongodb.net/Datablog?retryWrites=true&w=majority'; // url de la BDD mongo
+    'mongodb+srv://****:****@clustertuto.***.mongodb.net/Datablog?retryWrites=true&w=majority'; // url de la BDD mongo
 mongoose.connect(urlmongo, options); // connection de l'API à la base de données
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erreur lors de la connexion')); // retour si erreur de co
